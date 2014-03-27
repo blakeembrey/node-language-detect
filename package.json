@@ -1,0 +1,34 @@
+{
+  "name": "language-detect",
+  "version": "0.0.0",
+  "description": "Detect the programming lanugage of any file.",
+  "main": "language-detect.js",
+  "scripts": {
+    "test": "npm run-script prepublish && istanbul cover _mocha -- -R spec",
+    "prepublish": "node scripts/build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/blakeembrey/language-detect.git"
+  },
+  "keywords": [
+    "language",
+    "detect",
+    "classify",
+    "file"
+  ],
+  "author": "Blake Embrey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/blakeembrey/language-detect/issues"
+  },
+  "homepage": "https://github.com/blakeembrey/language-detect",
+  "dependencies": {
+    "language-classifier": "0.0.1"
+  },
+  "devDependencies": {
+    "mocha": "^1.18.2",
+    "istanbul": "^0.2.6",
+    "language-map": "0.0.1"
+  }
+}
