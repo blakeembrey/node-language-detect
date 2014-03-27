@@ -1,6 +1,6 @@
 # Language Detect
 
-Check the language of any file by comparing filenames, extensions, shebangs and finally falling back to a programming language classifier.
+Detect the programming language of any file by checking the file name, file extension, file shebang and finally falling back to a programming language classifier.
 
 ## Installation
 
