@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/blakeembrey/language-detect.git"
+    "url": "git://github.com/blakeembrey/node-language-detect.git"
   },
   "keywords": [
     "language",
@@ -20,9 +20,9 @@
   "author": "Blake Embrey",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/blakeembrey/language-detect/issues"
+    "url": "https://github.com/blakeembrey/node-language-detect/issues"
   },
-  "homepage": "https://github.com/blakeembrey/language-detect",
+  "homepage": "https://github.com/blakeembrey/node-language-detect",
   "dependencies": {
     "language-classifier": "0.0.1"
   },
