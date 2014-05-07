@@ -11,6 +11,7 @@
   "clisp": "Common Lisp",
   "ecl": "Common Lisp",
   "groovy": "Groovy",
+  "node": "JavaScript",
   "lua": "Lua",
   "make": "Makefile",
   "perl": "Perl",

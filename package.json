@@ -5,7 +5,8 @@
   "main": "language-detect.js",
   "scripts": {
     "test": "npm run-script prepublish && istanbul cover _mocha -- -R spec",
-    "prepublish": "node scripts/build"
+    "build": "node scripts/build",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,6 @@
   "devDependencies": {
     "mocha": "^1.18.2",
     "istanbul": "^0.2.6",
-    "language-map": "0.0.1"
+    "language-map": "0.0.2"
   }
 }
