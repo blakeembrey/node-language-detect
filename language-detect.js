@@ -93,7 +93,7 @@ exports = module.exports = function (filename, done) {
       }
 
       // If the shebang doesn't exist, fall back to language classification.
-      var classified = classifyMap[classify(chunk)];
+      var classified = exports.classify(chunk);
 
       if (classified) {
         (languages[classified]++ || (languages[classified] = 1));
@@ -161,7 +161,7 @@ exports.filename = function (filename) {
  */
 exports.shebang = function (file) {
   // Coerece to a string (in case of Buffer) and replace preceding whitespace.
-  file = file.toString().replace(/^ */, '');
+  file = file.toString().replace(/^\s*/, '');
 
   // Return early if it doesn't start with a shebang.
   if (file.substr(0, 2) !== '#!') {
@@ -181,4 +181,14 @@ exports.shebang = function (file) {
   script = script.replace(/(?:\d+\.?)+$/, '');
 
   return exports.interpreters[script] || exports.aliases[script];
+};
+
+/**
+ * Attempt to classify the file contents.
+ *
+ * @param  {String} file
+ * @return {String}
+ */
+exports.classify = function (file) {
+  return classifyMap[classify(file)];
 };

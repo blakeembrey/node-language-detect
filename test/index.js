@@ -12,6 +12,11 @@ describe('language detect', function () {
     assert.equal(detect.shebang(''), null);
     assert.equal(detect.shebang('#!/usr/bin/env make'), 'Makefile');
     assert.equal(detect.shebang('#!/usr/bin/sbcl --script'), 'Common Lisp');
+    assert.equal(detect.shebang('#!/usr/bin/python2.6'), 'Python');
+  });
+
+  it('should allow synchronous language classification', function () {
+    assert.equal(detect.classify('for link in links:'), 'Python');
   });
 
   it('should error when the file doesn\'t exist', function (done) {
