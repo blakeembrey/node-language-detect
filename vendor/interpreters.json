@@ -14,6 +14,7 @@
   "node": "JavaScript",
   "lua": "Lua",
   "make": "Makefile",
+  "php": "PHP",
   "perl": "Perl",
   "python": "Python",
   "Rscript": "R",

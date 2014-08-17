@@ -100,7 +100,7 @@ exports = module.exports = function (filename, done) {
       }
     });
 
-    stream.on('end', function () {
+    stream.on('close', function () {
       // We can short-circuit if the shebang was detected.
       if (shebangDetected) {
         return done(null, shebangDetected);

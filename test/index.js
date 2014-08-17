@@ -48,7 +48,7 @@ describe('language detect', function () {
   describe('file extension detection', function () {
     it('should match the file extension', function (done) {
       detect(__dirname + '/fixtures/bar.h', function (err, language) {
-        assert.equal(language, 'C++');
+        assert.equal(language, 'Objective-C');
 
         return done(err);
       });
