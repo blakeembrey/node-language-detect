@@ -5,7 +5,7 @@
 [![Test coverage][coveralls-image]][coveralls-url]
 [![Gittip][gittip-image]][gittip-url]
 
-Detect the programming language of any file by checking the file name, file extension, file shebang and finally falling back to a programming language classifier. For more language information, use in conjuction with [language-map](https://github.com/blakeembrey/language-map).
+Detect the programming language of any file by checking the file name, file extension, file shebang and finally falling back to a programming language classifier. For more language information, use in conjunction with [language-map](https://github.com/blakeembrey/language-map).
 
 ## Installation
 
