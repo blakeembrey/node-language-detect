@@ -1,5 +1,7 @@
-var detect = require('../');
 var assert = require('assert');
+var fs = require('fs');
+var join = require('path').join;
+var detect = require('../');
 
 describe('language detect', function () {
   it('should allow synchronous filename detection', function () {
@@ -35,51 +37,48 @@ describe('language detect', function () {
     })
   });
 
-  describe('file name detection', function () {
-    it('should match the file name', function (done) {
-      detect(__dirname + '/fixtures/Gemfile', function (err, language) {
-        assert.equal(language, 'Ruby');
+  function test (name, path, language) {
+    describe(name, function () {
+      it('should detect', function (done) {
+        detect(path, function (err, result) {
+          assert.equal(result, language);
 
-        return done(err);
+          return done(err);
+        });
+      });
+
+      it('should work synchronously', function () {
+        var result = detect.sync(path);
+
+        assert.equal(result, language);
+      });
+
+      it('should work on contents', function () {
+        var result = detect.contents(path, fs.readFileSync(path, 'utf8'));
+
+        assert.equal(result, language);
       });
     });
-  });
+  }
 
-  describe('file extension detection', function () {
-    it('should match the file extension', function (done) {
-      detect(__dirname + '/fixtures/bar.h', function (err, language) {
+  test('file name detection', join(__dirname, 'fixtures/Gemfile'), 'Ruby');
+  test('file extension detection', join(__dirname, 'fixtures/bar.h'), 'Objective-C');
+  test('shebang detection', join(__dirname, 'fixtures/build'), 'JavaScript');
+  test('language classification', join(__dirname, 'fixtures/obscure'), 'CSS');
+
+  describe('additional tests', function () {
+    it('shebang detect should fallback', function (done) {
+      detect(join(__dirname, 'fixtures/bar.h'), function (err, language) {
         assert.equal(language, 'Objective-C');
 
         return done(err);
       });
     });
-  });
 
-  describe('shebang detection', function () {
-    it('should match the interpreter in the shebang', function (done) {
-      detect(__dirname + '/fixtures/build', function (err, language) {
-        assert.equal(language, 'JavaScript');
+    it('should work with object property name', function () {
+      var result = detect.filename('constructor');
 
-        return done(err);
-      });
-    });
-
-    it('should fall back when shebang is unknown', function (done) {
-      detect(__dirname + '/fixtures/unknown_shebang', function (err, language) {
-        assert.equal(language, 'Shell');
-
-        return done(err);
-      })
-    });
-  });
-
-  describe('language classification', function () {
-    it('should auto-detect languages as a final fallback', function (done) {
-      detect(__dirname + '/fixtures/obscure', function (err, language) {
-        assert.equal(language, 'CSS');
-
-        return done(err);
-      })
+      assert.equal(result, undefined);
     });
   });
 });

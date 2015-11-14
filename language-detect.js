@@ -33,7 +33,7 @@ exports = module.exports = function (filename, done) {
     }
 
     if (!stats.isFile()) {
-      return done(new Error('Should only detect files'));
+      return done(new Error('Should only detect files: ' + filename));
     }
 
     // Do the simplest synchronous test based on filenames first.
@@ -51,14 +51,14 @@ exports = module.exports = function (filename, done) {
 
     // Open a file read stream. This should be the simplest way to do
     // dynamic language detection while the stream is running.
-    var stream = fs.createReadStream(filename, {
-      encoding: 'utf8'
-    });
+    var stream = fs.createReadStream(filename);
 
     // Call `done` with the error when something breaks.
     stream.on('error', done);
 
-    stream.on('data', function (chunk) {
+    stream.on('data', function (data) {
+      var chunk = data.toString();
+
       // If it's the first chunk we want to
       if (firstChunk) {
         chunk = chunk.replace(/^ +/, '');
@@ -132,6 +132,38 @@ exports.extensions   = require('./vendor/extensions.json');
 exports.interpreters = require('./vendor/interpreters.json');
 
 /**
+ * Detect file language synchronously.
+ *
+ * @param  {String} filename
+ * @return {String}
+ */
+exports.sync = function (filename) {
+  if (!fs.statSync(filename).isFile()) {
+    throw new Error('Should only detect files: ' + filename);
+  }
+
+  return (
+    exports.filename(filename) ||
+    exports.contents(path, fs.readFileSync(filename))
+  );
+}
+
+/**
+ * Check against the contents of a file synchronously.
+
+ * @param  {String} filename
+ * @param  {String} contents
+ * @return {String}
+ */
+exports.contents = function (filename, contents) {
+  return (
+    exports.filename(filename) ||
+    exports.shebang(contents) ||
+    exports.classify(contents)
+  );
+};
+
+/**
  * Attempt to get the language based on a filename.
  *
  * @param  {String} filename
@@ -141,14 +173,14 @@ exports.filename = function (filename) {
   var basename = path.basename(filename);
 
   // The filename was detected.
-  if (exports.filenames[basename]) {
+  if (typeof exports.filenames[basename] === 'string') {
     return exports.filenames[basename];
   }
 
   var extension = (path.extname(basename) || '').toLowerCase();
 
   // The extension was recognised.
-  if (exports.extensions[extension]) {
+  if (typeof exports.extensions[extension] === 'string') {
     return exports.extensions[extension];
   }
 };
@@ -156,12 +188,12 @@ exports.filename = function (filename) {
 /**
  * Return the language from a shebang definition.
  *
- * @param  {String} file
+ * @param  {String} contents
  * @return {String}
  */
-exports.shebang = function (file) {
+exports.shebang = function (contents) {
   // Coerece to a string (in case of Buffer) and replace preceding whitespace.
-  file = file.toString().replace(/^\s*/, '');
+  var file = contents.toString().replace(/^\s*/, '');
 
   // Return early if it doesn't start with a shebang.
   if (file.substr(0, 2) !== '#!') {
@@ -186,9 +218,9 @@ exports.shebang = function (file) {
 /**
  * Attempt to classify the file contents.
  *
- * @param  {String} file
+ * @param  {String} contents
  * @return {String}
  */
-exports.classify = function (file) {
-  return classifyMap[classify(file)];
+exports.classify = function (contents) {
+  return classifyMap[classify(contents.toString())];
 };
