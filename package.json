@@ -1,6 +1,6 @@
 {
   "name": "language-detect",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Detect the programming language of any file.",
   "main": "language-detect.js",
   "scripts": {
