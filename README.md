@@ -4,6 +4,7 @@
 [![NPM downloads][downloads-image]][downloads-url]
 [![Build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
+[![Greenkeeper badge](https://badges.greenkeeper.io/blakeembrey/node-language-detect.svg)](https://greenkeeper.io/)
 
 Detect the programming language of any file by checking the file name, file extension, file shebang and falling back to a programming language classifier. For more language information, it should be used in conjunction with [language-map](https://github.com/blakeembrey/language-map).
 
