@@ -696,7 +696,7 @@
   ".tu": "Turing",
   ".ttl": "Turtle",
   ".twig": "Twig",
-  ".ts": "XML",
+  ".ts": "TypeScript",
   ".upc": "Unified Parallel C",
   ".anim": "Unity3D Asset",
   ".asset": "Unity3D Asset",
