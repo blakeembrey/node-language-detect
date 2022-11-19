@@ -21,7 +21,7 @@ describe('language detect', function () {
     assert.equal(detect.classify('for link in links:'), 'Python');
   });
 
-  it('should error when the file doesn\'t exist', function (done) {
+  it(`should error when the file doesn't exist`, function (done) {
     detect('/where/art/thou/romeo', function (err) {
       assert.ok(err);
 
@@ -30,7 +30,7 @@ describe('language detect', function () {
   });
 
   it('should error when checking a directory', function (done) {
-    detect(__dirname + '/fixtures/Cakefile', function (err) {
+    detect('./fixtures/Cakefile', function (err) {
       assert.ok(err);
 
       return done();
@@ -61,14 +61,14 @@ describe('language detect', function () {
     });
   }
 
-  test('file name detection', join(__dirname, 'fixtures/Gemfile'), 'Ruby');
-  test('file extension detection', join(__dirname, 'fixtures/bar.h'), 'Objective-C');
-  test('shebang detection', join(__dirname, 'fixtures/build'), 'JavaScript');
-  test('language classification', join(__dirname, 'fixtures/obscure'), 'CSS');
+  test('file name detection', './fixtures/Gemfile', 'Ruby');
+  test('file extension detection', './fixtures/bar.h', 'Objective-C');
+  test('shebang detection', './fixtures/build', 'JavaScript');
+  test('language classification', './fixtures/obscure', 'CSS');
 
   describe('additional tests', function () {
     it('shebang detect should fallback', function (done) {
-      detect(join(__dirname, 'fixtures/bar.h'), function (err, language) {
+      detect('./fixtures/bar.h', function (err, language) {
         assert.equal(language, 'Objective-C');
 
         return done(err);

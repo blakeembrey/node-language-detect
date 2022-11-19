@@ -15,7 +15,7 @@ var interpreters = {};
 /**
  * Writable paths.
  */
-var VENDOR_DIR       = path.join(__dirname, '..', 'vendor');
+var VENDOR_DIR       = path.join('../', 'vendor');
 var ALIAS_PATH       = path.join(VENDOR_DIR, 'aliases.json');
 var FILENAME_PATH    = path.join(VENDOR_DIR, 'filenames.json');
 var EXTENSION_PATH   = path.join(VENDOR_DIR, 'extensions.json');
